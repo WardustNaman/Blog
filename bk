@@ -1,0 +1,16 @@
+
+<!-- <h2>Listing Blogs Categories (<%= @categories.length %>)</h2>
+<%# if @categories.empty? %>
+	<p>No Blogs</p>
+	<%# else %>
+<ol>
+	<%#@categories.each do |category| %>
+	<li>
+		<%#= link_to category.name, category_path(category.id) %> - (<%= category.articles.count %>)
+			</li>
+	<%#end %>
+</ol>
+<%#end %>
+<%#if (user_signed_in?) && (can? :create, Category.new) %>
+<%= #link_to "Add Categories", new_category_path%>
+<%#end %> -->S

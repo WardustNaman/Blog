@@ -1,0 +1,84 @@
+<%= form_for @article do |f| %>
+
+<% if @article.errors.any? %>
+<h3>These errors prohibited the form from being saved</h3>
+<ul>
+	<% @article.errors.full_messages.each do |msg| %>
+	<li><%= msg %></li>
+	<% end %>
+</ul>
+<% end %>
+<label for="article_category_id">Category : </label> <br/>
+<%= f.collection_select :category_id, Category.all, :id, :name, prompt: "Select Category" %> <br/>
+
+<label for="article_title">Title : </label>  <br/>
+<%= f.text_field :title, placeholder: "Enter title" %> <span id="nameMsg"></span> <br/>
+
+<label for="article_body">Body : </label> <br/>
+<%= f.text_area :body, placeholder: "Enter description" %>  <span id="bodyMsg"></span><br/>
+
+<label for="article_publish_date">Publish Date : </label> <br/>
+<%= f.date_select :publish_date, start_year: Date.today.year, end_year: Date.today.year + 1 %> <br/>
+
+<label for="article_feature_image_url">Image : </label> <br/>
+<%= f.text_field :feature_image_url %> <br/>
+
+<%= f.submit %>
+
+<% end %>
+
+<script>
+	var nameHandle = document.getElementById('article_title');
+	var nameMsgHandle = document.getElementById('nameMsg');
+
+	nameHandle.addEventListener('focus', function(){
+		nameMsgHandle.innerHTML = "Enter the article title";
+	}, false)
+
+	nameHandle.addEventListener('blur', function(){
+		if (nameHandle.value === ""){
+			nameErrorMsgHandle.innerHTML = "can't be blank"
+		}
+		else{
+  var xhr = new XMLHttpRequest();
+xhr.open('GET','/articles/check_name_present?title=' + nameHandle.value, true)
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState === 4 && xhr.status === 200){
+      var response = JSON.parse(xhr.responseText);
+      nameMsgHandle.innerHTML = response.msg;
+    }
+  }
+  xhr.send()
+}
+  }, false);
+	nameHandle.addEventListener('focus', function(){
+  nameMsgHandle.innerHTML = "";
+},false);
+
+
+	nameHandle.addEventListener('blur', function(){
+		if(nameHandle.value == ""){
+			nameMsgHandle.innerHTML = "can't be blank";
+		}else {
+			nameMsgHandle.innerHTML = "";
+		}
+	}, false);
+
+
+	var bodyHandle = document.getElementById('article_body');
+	var bodyMsgHandle = document.getElementById('bodyMsg');
+
+	bodyHandle.addEventListener('focus', function(){
+		bodyMsgHandle.innerHTML = "Enter the article description";
+	}, false)
+
+
+	bodyHandle.addEventListener('blur', function(){
+		if(bodyHandle.value == ""){
+			bodyMsgHandle.innerHTML = "can't be blank";
+		}else {
+			bodyMsgHandle.innerHTML = "";
+		}
+	}, false);
+
+</script>

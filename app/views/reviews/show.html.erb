@@ -1,0 +1,19 @@
+<h2> <%= @review.article.title %></h2>
+Your updated comment : <%= @review.body %> <br/>
+Your updated rating : <%= @review.rating %>
+
+<h4>Other comments for this article</h4>
+<ol>
+<% @article.reviews.each do |review|  %>
+		
+		<% if review.id == @review.id %>
+
+		<% else %>
+		<li>
+				<%= review.body %>
+		<% end %>
+		</li>
+		
+<% end %>
+</ol>
+

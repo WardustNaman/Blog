@@ -1,0 +1,132 @@
+<div class="row">
+
+	<!-- Post Content Column -->
+	<div class="col-lg-8">
+
+		<!-- Title -->
+		<h1 class="mt-4"><%= @article.title%></h1>
+
+		<!-- Author -->
+		<p class="lead">
+			in
+			<%= link_to @article.category.name, @article.category%>
+		</p>
+
+		<hr>
+
+		<!-- Date/Time -->
+		<p>Posted on <%= @article.publish_date.strftime("%B %d %Y %H:%M %p")%></p>
+
+		<hr>
+
+		<!-- Preview Image -->
+		<!-- <img class="img-fluid rounded" src="@article.feature_image_url" alt=""> -->
+		<%= image_tag(@article.feature_image_url, size: "900x300", class: "img-fluid rounded" )%>
+
+		<hr>
+
+		<!-- Post Content -->
+		<p><h4>Description - </h4><%= raw(@article.body) %></p>
+
+		<!-- Comments Form -->
+		<div class="card my-4">
+			<h5 class="card-header">Leave a Comment:</h5>
+			<div class="card-body">
+
+				<%= form_for @review do |f|%>
+				<%= f.hidden_field :article_id , value: @article.id%><br/>
+				<div class="form-group">
+					<%= f.text_area :body, class: "form-control"%>
+				</div>
+
+				<label for ="review_rating"> Rating :</label> <br/>
+				<%= f.radio_button :rating, 1 %> 1
+				<%= f.radio_button :rating, 2 %> 2
+				<%= f.radio_button :rating, 3 %> 3
+				<%= f.radio_button :rating, 4 %> 4
+				<%= f.radio_button :rating, 5 %> 5 <br/>
+				<%= f.submit "Add Comment", class: "btn btn-primary" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Sidebar Widgets Column -->
+	<div class="col-md-4">
+
+		<!-- Search Widget -->
+		<div class="card my-4">
+			<h5 class="card-header">Reviews</h5>
+			<div class="card-body">
+				<% @article.reviews.each do |review|%>
+		<div class="media mb-4">
+			<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+			<div class="media-body">
+				<h5 class="mt-0"><%= review.user.try(:email)%></h5>
+				<%= review.body%>
+				<%= review.rating%>
+			</div>
+		</div>
+		<%end%>
+			</div>
+		</div>		
+	</div>
+</div>
+      <!-- /.row -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<h2><%= @article.title %></h2>
+<p><% if (user_signed_in?) && (can? :create, @article) %><%= link_to "edit", edit_article_path(@article.id) %> | <%= link_to"delete", article_path(@article.id), method: :delete, data: {confirm: "Are you sure? "} %><% end %> </p> 
+
+<% if !@article.category.nil? %>
+<%= link_to @article.category.name, category_path(@article.category_id) %>
+<% end %> <br/>
+
+<p> Description - <%= @article.body %></p>
+<p> Date of publish - (<%= @article.publish_date %>)</p>
+<p><%= image_tag(@article.feature_image_url, size: "700x300") %></p>
+<%= link_to "Articles list",articles_path %>
+
+
+<% if @article.reviews.empty? %>
+<p>No reviews found. Be the first one to review.</p>
+<% else %>
+<h3> Listing Comments </h3>
+<ol>
+	<% @article.reviews.each do |review| %>
+	<li>
+		<%= review.body %> - (<%= review.rating %>) - <%= review.user_id %><p><% if (user_signed_in?) %><%= link_to "edit", edit_review_path(review.id) %> | <%= link_to "destroy", review_path(review.id),method: :delete, data: {confirm: "Are you sure you want to delete this review"} %><% end %> </p> 
+	</li>
+	<% end %>
+</ol>
+<% end %>
+
+<h3>Add your comment</h3>
+<%= form_for @review do |f| %>
+
+<label for="review_body"> Body </label> <br/>
+<%= f.text_area :body %> <br/>
+
+<%= f.hidden_field :article_id, value: @article.id %>
+
+<br/>
+<label> Rating </label> <br/>
+<%= f.radio_button :rating, 1 %> 1
+<%= f.radio_button :rating, 2 %> 2
+<%= f.radio_button :rating, 3 %> 3
+<%= f.radio_button :rating, 4 %> 4
+<%= f.radio_button :rating, 5 %> 5 <br/>
+<%= f.submit "create" %>
+<% end %> -->
+

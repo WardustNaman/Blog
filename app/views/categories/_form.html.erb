@@ -1,0 +1,93 @@
+<%= form_for @category do |f| %>
+
+<% if @category.errors.any? %>
+<h3>These errors prohibited the form from being saved</h3>
+<ul>
+	<% @category.errors.full_messages.each do |msg| %>
+	<li><%= msg %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<label for="category_name"> Name : </label> <br/>
+<%= f.text_field :name, placeholder: "Enter name" %> <span id="nameMsg"></span><br/>
+
+<label for="category_description"> Description : </label> <br/>
+<%= f.text_area :description, placeholder: "Enter description" %> <span id="bodyMsg"></span><br/>
+
+
+<%= f.submit %>
+
+<% end %>
+
+<script>
+	var nameHandle = document.getElementById('category_name');
+	var nameMsgHandle = document.getElementById('nameMsg');
+
+	nameHandle.addEventListener('focus', function(){
+		nameMsgHandle.innerHTML = "Enter the category name";
+	}, false)
+
+	nameHandle.addEventListener('blur', function(){
+  var xhr = new XMLHttpRequest();
+xhr.open('GET','/categories/check_name_present?name=' + nameHandle.value, true)
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState === 4 && xhr.status === 200){
+      var response = JSON.parse(xhr.responseText);
+      nameMsgHandle.innerHTML = response.msg;
+    }
+  }
+  xhr.send()
+  }, false);
+
+	nameHandle.addEventListener('blur', function(){
+		if(nameHandle.value == ""){
+			nameMsgHandle.innerHTML = "can't be blank";
+		}else {
+			nameMsgHandle.innerHTML = "";
+		}
+	}, false);
+
+	var bodyHandle = document.getElementById('category_description');
+	var bodyMsgHandle = document.getElementById('bodyMsg');
+
+	bodyHandle.addEventListener('focus', function(){
+		bodyMsgHandle.innerHTML = "Enter the category description";
+	}, false)
+
+
+	bodyHandle.addEventListener('blur', function(){
+		if(bodyHandle.value == ""){
+			bodyMsgHandle.innerHTML = "can't be blank";
+		}else {
+			bodyMsgHandle.innerHTML = "";
+		}
+	}, false);
+
+  
+// var nameHandle = document.getElementById('category_name');
+// 	var nameMsgHandle = document.getElementById('nameMsg');
+
+// nameHandle.addEventListener('blur', function(){
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('GET','/categories/check_name_present?name=' + nameHandle.value, true)
+//   xhr.onreadystatechange = function(){
+//     if(xhr.readyState === 4 && xhr.status === 200){
+//       var response = JSON.parse(xhr.responseText);
+//       nameMsgHandle.innerHTML = response.msg;
+//     }
+//   }
+//   xhr.send()
+//   }, false);
+
+nameHandle.addEventListener('focus', function(){
+  nameMsgHandle.innerHTML = "";
+},false);
+
+
+
+
+
+
+
+</script>

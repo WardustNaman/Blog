@@ -1,0 +1,16 @@
+<h3>Edit your comment</h3>
+<%= form_for @review do |f| %>
+
+<label for="review_body"> Body </label> <br/>
+<%= f.text_area :body %> <br/>
+
+
+<br/>
+<label> Rating </label> <br/>
+<%= f.radio_button :rating, 1 %> 1
+<%= f.radio_button :rating, 2 %> 2
+<%= f.radio_button :rating, 3 %> 3
+<%= f.radio_button :rating, 4 %> 4
+<%= f.radio_button :rating, 5 %> 5 <br/>
+<%= f.submit "Update" %>
+<% end %>

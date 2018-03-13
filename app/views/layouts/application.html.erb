@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pro</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+    <link rel="stylesheet" href="/stylesheets/blog-home.css" />
+  </head>
+
+  <body>
+    <%= render "/layouts/nav" %>
+    <div class="container">
+    <%# if user_signed_in? %> 
+      <!-- welcome <%#= current_user.email %>  -->
+      <!-- <%#= link_to "Account Setting", edit_user_registration_path %>  | <%#= link_to "Logout", destroy_user_session_path, method: :delete %> |  -->
+    <%# else %>
+      <!-- <%#= link_to "Register", new_user_registration_path %> | <%#= link_to "Login", new_user_session_path %> |  -->
+    <%# end %>
+  	<!-- <%#= link_to "Categories", categories_path %> | -->
+  	<!-- <%#= link_to "Articles", articles_path%> | -->
+  	<!-- <%#= link_to "Home", say_hello_path%> | -->
+  	<!-- <%#= link_to "About Us", say_goodbye_path%> | -->
+    <!-- <%#= link_to "Google", "http://www.google.com", :target => "_blank"%> | -->
+    <!-- <%#= link_to "Gmail", "http://www.gmail.com", :target => "_blank"%> | -->
+    <!-- <%#= link_to "DCT", "http://www.dctacademy.com", :target => "_blank"%> | -->
+    <%#= link_to "DCT-Assessment", "http://dct-assessment.herokuapp.com", :target => "_blank"%>
+  	<br/>
+  	<%= notice %>
+    <%= alert %>
+
+    <%= yield %>
+    </div>
+
+    <%# if user_signed_in? %>
+      <!-- <p> You current IP (<%#= current_user.current_sign_in_ip %>) </p> -->
+    <%# end %>
+  </body>
+</html>
